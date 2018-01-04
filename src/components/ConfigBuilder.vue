@@ -18,6 +18,7 @@
 					<b-col >
 						<b-select v-model="selectedSource"
 							@change="fetchConfig"
+							:disabled="loadingConfig"
 						>
 							<option v-once :value="null">-</option>
 							<option v-for="source in sources" :key="source"
@@ -33,7 +34,7 @@
 				<b-col>
 				<b-card border-variant="secondary">
 
-					<h3 v-if="loadingConfig">Loading...</h3>
+					<spinner size="large" message="Loading..." v-if="loadingConfig">Loading...</spinner>
 					<b-form-group
 						v-else
 						v-for="(paramData, paramName, index) in config" :key="index"
@@ -61,19 +62,22 @@
 
 <script>
 import ConfigParam from "@/components/ConfigParam"
+import Spinner from "vue-simple-spinner"
 
 import configService, { configs as configsList } from "@/services/config"
 import Parser from "@/services/parser"
 
 export default {
   components: {
-    ConfigParam
+    ConfigParam,
+		Spinner
   },
   data() {
     return {
       config: {},
       sources: Object.keys(configsList),
-      selectedSource: null
+      selectedSource: null,
+			loadingConfig: false
     };
   },
   mounted() {},
@@ -83,6 +87,7 @@ export default {
 			if(source === null) {
 				return;
 			}
+			this.loadingConfig = true;
 
       configService.getConfig(source)
         .then(config => {
@@ -98,7 +103,10 @@ export default {
         })
         .catch(err => {
           throw err;
-        });
+        })
+				.then(() => {
+					this.loadingConfig = false;
+				});
     }
   }
 };
