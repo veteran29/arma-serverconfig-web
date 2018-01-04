@@ -1,35 +1,60 @@
 <template>
 	<b-container fluid>
-
 		<b-row>
-			<b-col md="3" offset-md="1">
-				<div class="control-label">Select source</div>
-			</b-col>
-			<b-col md="6">
-				<b-select v-model="selectedSource"
-					@change="fetchConfig"
+			<b-col id="config-source" md="6">
+			<b-row>
+				<b-col>
+
+				<b-card
+					header="Select params source"
+					header-bg-variant="dark"
+					header-text-variant="light"
+					border-variant="secondary"
 				>
-					<option v-once :value="selectedSource">-</option>
-					<option v-for="source in sources" :key="source"
-						:value="source"
-					>{{ source }}</option>
-				</b-select>
+
+					<b-col>
+						<!-- <label class="form-control-label">Select source</label> -->
+					</b-col>
+					<b-col >
+						<b-select v-model="selectedSource"
+							@change="fetchConfig"
+						>
+							<option v-once :value="null">-</option>
+							<option v-for="source in sources" :key="source"
+								:value="source"
+							>{{ source }}</option>
+						</b-select>
+					</b-col>
+				</b-card>
+				</b-col>
+			</b-row>
+
+			<b-row>
+				<b-col>
+				<b-card border-variant="secondary">
+
+					<h3 v-if="loadingConfig">Loading...</h3>
+					<b-form-group
+						v-else
+						v-for="(paramData, paramName, index) in config" :key="index"
+					>
+							<label class="control-label">{{ paramName }}</label>
+							<config-param
+								:data="paramData"
+								:name="paramName"
+							></config-param>
+					</b-form-group>
+
+				</b-card>
+				</b-col>
+			</b-row>
+			</b-col>
+
+			<b-col id="config-preview" md="6" >
+				<b-textarea value="asdasdasd" :readonly="true"></b-textarea>
 			</b-col>
 		</b-row>
 
-		<b-row align-v="center"
-			v-for="(paramData, paramName, index) in config" :key="index"
-		>
-			<b-col md="3" offset-md="1">
-				<div class="control-label">{{ paramName }}</div>
-			</b-col>
-			<b-col md="6">
-				<config-param
-					:data="paramData"
-					:name="paramName"
-				></config-param>
-			</b-col>
-		</b-row>
 
 	</b-container>
 </template>

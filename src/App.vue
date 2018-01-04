@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-	  <h2>Arma config builder</h2>
 		<div id="content">
 	  	<config-builder/>
 		</div>
