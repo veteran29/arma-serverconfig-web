@@ -1,0 +1,14 @@
+// Config file for Vetur plugin
+{
+	"include": [
+		"./src/**/*"
+	],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		}
+	}
+}
