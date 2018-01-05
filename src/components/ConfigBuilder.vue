@@ -68,46 +68,46 @@ import configService, { configs as configsList } from "@/services/config"
 import Parser from "@/services/parser"
 
 export default {
-  components: {
-    ConfigParam,
+	components: {
+		ConfigParam,
 		Spinner
-  },
-  data() {
-    return {
-      config: {},
-      sources: Object.keys(configsList),
-      selectedSource: null,
+	},
+	data() {
+		return {
+			config: {},
+			sources: Object.keys(configsList),
+			selectedSource: null,
 			loadingConfig: false
-    };
-  },
-  mounted() {},
-  methods: {
-    fetchConfig(source) {
+		};
+	},
+	mounted() {},
+	methods: {
+		fetchConfig(source) {
 			this.config = {};
 			if(source === null) {
 				return;
 			}
 			this.loadingConfig = true;
 
-      configService.getConfig(source)
-        .then(config => {
-          config = config.replace(/#include.+$/gm, ""); // dirty hack, TODO add "#include" support to class parser
-          const parsed = Parser.parse(config);
-          if (!parsed.hasOwnProperty("Params")) {
-            throw new Exception("Config file has no mission Params");
-          }
-          return parsed.Params;
-        })
-        .then(parsed => {
-          return (this.config = parsed);
-        })
-        .catch(err => {
-          throw err;
-        })
+			configService.getConfig(source)
+				.then(config => {
+					config = config.replace(/#include.+$/gm, ""); // dirty hack, TODO add "#include" support to class parser
+					const parsed = Parser.parse(config);
+					if (!parsed.hasOwnProperty("Params")) {
+						throw new Exception("Config file has no mission Params");
+					}
+					return parsed.Params;
+				})
+				.then(parsed => {
+					return (this.config = parsed);
+				})
+				.catch(err => {
+					throw err;
+				})
 				.then(() => {
 					this.loadingConfig = false;
 				});
-    }
-  }
+		}
+	}
 };
 </script>
