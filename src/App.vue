@@ -7,10 +7,7 @@
 </template>
 
 <script>
-import github from "@/services/config";
-import Parser from "@/services/parser";
-
-import ConfigBuilder from "@/components/ConfigBuilder";
+import ConfigBuilder from "@/components/Config/Builder";
 
 export default {
   name: "app",

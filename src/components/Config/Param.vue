@@ -1,8 +1,7 @@
 <template>
 	<b-select
-		:id="selectId"
-
-		v-model="selected"
+		:value="data.default"
+		@input="emitInput"
 		:options="options"
 	></b-select>
 </template>
@@ -11,13 +10,15 @@
 export default {
 	data() {
 		return {
-			selected: '',
-			selectId: null
 		};
 	},
 	props: {
+		value: '',
 		name: '',
-		data: {}
+		data: {
+			type: Object,
+			required: true
+		}
 	},
 	computed: {
 		options() {
@@ -28,8 +29,13 @@ export default {
 			return options;
 		}
 	},
-	mounted() {
-		this.selected = this.data.default;
+	created() {
+		this.$emit('input', this.data.default);
+	},
+	methods: {
+		emitInput(e) {
+			this.$emit('input', e);
+		}
 	}
 };
 </script>
