@@ -33,7 +33,6 @@ export default {
       }
 
       return Object.keys(this.params)
-        .filter(x => !isParamACategory(this.params[x]))
         .reduce(
           (sourceLines, key) => (sourceLines += this.paramToSourceLine(key)),
           ""
@@ -45,7 +44,8 @@ export default {
   },
   methods: {
     paramToSourceLine(name) {
-      return `\t\t\t${name}=${this.params[name].selectedValue}\n`;
+			const param = this.params[name];
+      return isParamACategory(param) ? `\t\t\t/* ${param.title} */\n` : `\t\t\t${name}=${param.selectedValue}\n`;
     }
   }
 };
