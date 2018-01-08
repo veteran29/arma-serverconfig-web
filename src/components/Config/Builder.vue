@@ -13,8 +13,6 @@
 					header-text-variant="light"
 					border-variant="secondary"
 				>
-					<b-alert :show="selectedSource === null" variant="warning">Select mission source to configure parameters</b-alert>
-
 					<b-select v-model="selectedSource"
 						@change="fetchConfig"
 						:disabled="loadingConfig"
@@ -24,6 +22,7 @@
 							:value="source"
 						>{{ source }}</option>
 					</b-select>
+					<b-alert id="no-source-alert" :show="selectedSource === null" variant="warning">Select mission source to configure parameters</b-alert>
 				</b-card>
 				</b-col>
 			</b-row>
@@ -137,5 +136,10 @@ export default {
 <style scoped>
 	.card {
 		margin-bottom: 15px;
+	}
+
+	#no-source-alert {
+		margin-bottom: 0;
+		margin-top: 1rem;
 	}
 </style>
