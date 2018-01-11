@@ -1,12 +1,13 @@
 <template>
-	<b-card
-		header="Source code"
-		header-bg-variant="dark"
-		header-text-variant="light"
-		border-variant="secondary"
-	>
-		<pre v-highlightjs="source"><code class="cpp"></code></pre>
-	</b-card>
+  <b-card
+    header="Source code"
+    header-bg-variant="dark"
+    header-text-variant="light"
+    border-variant="secondary"
+    no-body
+  >
+    <pre v-highlightjs="source"><code class="cpp"/></pre>
+  </b-card>
 </template>
 
 <script>
@@ -20,6 +21,7 @@ export default {
       required: true
     }
   },
+
   computed: {
     sourceStart() {
       return 'class Missions\n{\n\tclass Mission_1\n\t{\n\t\t// Remember to input correct mission name\n\t\ttemplate = "kp_liberation.Altis";\n\t\tdifficulty = "custom";\n\t\tclass Params\n\t\t{\n';
@@ -42,6 +44,7 @@ export default {
       return this.sourceStart + this.paramLines + this.sourceEnd;
     }
   },
+
   methods: {
     paramToSourceLine(name) {
 			const param = this.params[name];

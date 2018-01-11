@@ -1,18 +1,31 @@
 <template>
   <div id="app">
-		<div id="content">
-	  	<config-builder/>
-		</div>
+    <nav-bar/>
+    <b-container
+      tag="main"
+      fluid
+    >
+      <config-builder/>
+    </b-container>
   </div>
 </template>
 
 <script>
-import ConfigBuilder from "@/components/Config/Builder";
+import ConfigBuilder from "@/components/MissionConfig"
+import NavBar from "@/components/Navbar"
 
 export default {
-  name: "app",
+  name: "App",
   components: {
-    ConfigBuilder: ConfigBuilder
+		NavBar,
+    ConfigBuilder
   }
 };
 </script>
+
+<style>
+	.navbar {
+		min-height: 3rem;
+		padding: 0rem 1rem;
+	}
+</style>

@@ -1,25 +1,27 @@
 <template>
-	<b-select
-		:value="data.default"
-		@input="emitInput"
-		:options="options"
-	></b-select>
+  <b-select
+    :value="data.default"
+    @input="emitInput"
+    :options="options"
+  />
 </template>
 
 <script>
 export default {
-	data() {
-		return {
-		};
-	},
-	props: {
-		value: '',
-		name: '',
+  props: {
+		//value: '',
+		//name: '',
 		data: {
 			type: Object,
 			required: true
 		}
 	},
+
+	data() {
+		return {
+		};
+	},
+
 	computed: {
 		options() {
 			let options = [];
@@ -29,9 +31,11 @@ export default {
 			return options;
 		}
 	},
+
 	created() {
 		this.$emit('input', this.data.default);
 	},
+
 	methods: {
 		emitInput(e) {
 			this.$emit('input', e);
