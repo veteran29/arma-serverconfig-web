@@ -29,7 +29,7 @@
       </b-navbar-nav>
 
       <b-navbar-nav>
-        <b-nav-item
+        <!-- <b-nav-item
           href="/"
           target="_blank">
           <svg
@@ -46,7 +46,8 @@
             />
           </svg>
           <span class="sr-only">GitHub</span>
-        </b-nav-item>
+        </b-nav-item> -->
+
         <b-nav-item>
           v{{ version }}
         </b-nav-item>
@@ -81,7 +82,7 @@
 <script>
 export default {
     computed: {
-        version: () => '0.0.1'
+        version: () => '0.0.1-alpha'
     }
 };
 </script>

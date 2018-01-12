@@ -1,78 +1,76 @@
 <template>
   <b-row>
-    <!-- Config Settings (left col) -->
+    <!-- Left column -->
     <b-col
       md="6"
-      class="sticky"
+      id="config-settings"
     >
-      <b-container id="config-source">
-        <!-- Config selection -->
-        <b-row>
-          <b-col>
+      <!-- Config selection -->
+      <b-row>
+        <b-col>
 
-            <b-card
-              header="Params source"
-              header-bg-variant="dark"
-              header-text-variant="light"
-              border-variant="secondary"
+          <b-card
+            header="Params source"
+            header-bg-variant="dark"
+            header-text-variant="light"
+            border-variant="secondary"
+          >
+            <b-select
+              v-model="selectedSource"
+              @change="fetchConfig"
+              :disabled="loadingConfig"
             >
-              <b-select
-                v-model="selectedSource"
-                @change="fetchConfig"
-                :disabled="loadingConfig"
-              >
-                <option
-                  v-once
-                  :value="null"
-                >-</option>
-                <option
-                  v-for="source in sources"
-                  :key="source"
-                  :value="source"
-                >{{ source }}</option>
-              </b-select>
-              <b-alert
-                id="no-source-alert"
-                :show="selectedSource === null"
-                variant="warning"
-              >Select mission source to configure parameters</b-alert>
-            </b-card>
-          </b-col>
-        </b-row>
-        <!-- Config settings -->
-        <b-row>
-          <b-col>
-            <!-- Spinner card -->
-            <b-card
-              v-if="loadingConfig"
-              border-variant="secondary"
-            >
-              <spinner
-                size="large"
-                message="Loading..."
-              >Loading...</spinner>
-            </b-card>
-            <!-- Parameters list cards -->
-            <param-list
-              v-else
-              v-for="(category, index) in categorizedParams"
-              :key="index"
-              :title="category.title"
-              :params="category.params"
-            />
-          </b-col>
-        </b-row>
-      </b-container>
+              <option
+                v-once
+                :value="null"
+              >-</option>
+              <option
+                v-for="source in sources"
+                :key="source"
+                :value="source"
+              >{{ source }}</option>
+            </b-select>
+            <b-alert
+              id="no-source-alert"
+              :show="selectedSource === null"
+              variant="warning"
+            >Select mission source to configure parameters</b-alert>
+          </b-card>
+        </b-col>
+      </b-row>
+      <!-- Config settings -->
+      <b-row>
+        <b-col>
+          <!-- Spinner card -->
+          <b-card
+            v-if="loadingConfig"
+            border-variant="secondary"
+          >
+            <spinner
+              size="large"
+              message="Loading..."
+            >Loading...</spinner>
+          </b-card>
+          <!-- Parameters list cards -->
+          <param-list
+            v-else
+            v-for="(category, index) in categorizedParams"
+            :key="index"
+            :title="category.title"
+            :params="category.params"
+          />
+        </b-col>
+      </b-row>
     </b-col>
 
-    <!-- Config preview (right col) -->
+    <!-- Right column -->
     <b-col
       md="6"
-      class="sticky"
+      id="config-source"
+      class="border border-secondary"
     >
-      <b-container id="config-preview">
-        <preview :params="config" />
-      </b-container>
+      <source-code :params="config" />
+
     </b-col>
 
   </b-row>
@@ -81,7 +79,7 @@
 <script>
 // Components
 import ParamList from "@/components/MissionConfigParamList";
-import Preview from "@/components/MissionConfigPreview";
+import SourceCode from "@/components/MissionConfigCode";
 import Spinner from "vue-simple-spinner";
 // Services
 import configService, { configs as configsList } from "@/services/config";
@@ -93,7 +91,7 @@ import translationParser from "@/services/translationParser";
 export default {
   components: {
     ParamList,
-    Preview,
+    SourceCode,
     Spinner
   },
 
@@ -164,6 +162,27 @@ export default {
 #no-source-alert {
   margin-bottom: 0;
   margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  #config-settings {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 50%;
+    height: calc(100% - 3rem);
+    overflow-y: scroll;
+  }
+
+  #config-source {
+    position: absolute;
+    top: 3rem;
+    left: 50%;
+    width: 50%;
+    height: calc(100% - 3rem);
+    overflow-y: scroll;
+    padding: 0;
+  }
 }
 
 .sticky {

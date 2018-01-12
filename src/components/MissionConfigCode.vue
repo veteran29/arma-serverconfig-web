@@ -1,13 +1,9 @@
 <template>
-  <b-card
-    header="Source code"
-    header-bg-variant="dark"
-    header-text-variant="light"
-    border-variant="secondary"
-    no-body
+  <pre
+    v-highlightjs="source"
   >
-    <pre v-highlightjs="source"><code class="cpp"/></pre>
-  </b-card>
+    <code class="cpp"/>
+  </pre>
 </template>
 
 <script>

@@ -8,7 +8,12 @@ export const isParamACategory = (param) => {
  * ("====" etc.)
  * @param {string} name
  */
-export const sanitizeParamCategoryName = (name) => name.replace(/(?: ?==+ ?)/gi, '');
+export const sanitizeParamCategoryName = (name) => {
+  return name
+    .replace(/(?: ?==+ ?)/gi, '')
+    .replace(/(?: ?<<+ ?)/gi, '')
+    .replace(/(?: ?>>+ ?)/gi, '')
+};
 
 /**
  *
