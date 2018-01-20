@@ -1,6 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 
+var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -68,9 +70,12 @@ if (process.env.NODE_ENV === 'production') {
         NODE_ENV: '"production"'
       }
     }),
-    new webpack.optimize.UglifyJsPlugin({
+    // Uglify-ES will be added by default in webpack 4 so we need to use plugin version for now
+    new UglifyJsPlugin({
+      parallel: true,
       sourceMap: true,
-      compress: {
+      uglifyOptions: {
+        ecma: 8,
         warnings: false
       }
     }),
