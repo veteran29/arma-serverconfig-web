@@ -21,11 +21,14 @@
       id="main-nav"
     >
 
+      <!-- <b-form>
+        <b-input placeholder="missionName.Mapname" />
+      </b-form> -->
+
       <b-navbar-nav>
-        <b-nav-item
-          to="/"
-          exact
-        >Url</b-nav-item>
+        <b-nav-item>
+          v{{ version }}
+        </b-nav-item>
       </b-navbar-nav>
 
       <b-navbar-nav>
@@ -48,9 +51,10 @@
           <span class="sr-only">GitHub</span>
         </b-nav-item> -->
 
-        <b-nav-item>
-          v{{ version }}
-        </b-nav-item>
+        <b-nav-item
+          to="./LICENSE"
+          exact
+        >License</b-nav-item>
       </b-navbar-nav>
 
     </b-collapse>

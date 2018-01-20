@@ -1,6 +1,9 @@
+/**
+ * @param {Object} param
+ */
 export const isParamACategory = (param) => {
-	// eslint-disable-next-line eqeqeq
-	return (param.default == false && param.values.length === 1 && param.values[0] == false);
+  // eslint-disable-next-line eqeqeq
+  return (param.default == false && param.values.length === 1 && param.values[0] == false);
 };
 
 /**
@@ -21,30 +24,30 @@ export const sanitizeParamCategoryName = (name) => {
  *
  */
 export const categorizeParams = (params) => {
-	try {
-		var data = [ { title: 'Params', params: {} } ];
+  try {
+    var data = [{ title: 'Params', params: {} }];
 
-		Object.keys(params).forEach(paramKey => {
-			const param = params[paramKey];
+    Object.keys(params).forEach(paramKey => {
+      const param = params[paramKey];
 
-			if (isParamACategory(param)) {
-				data.push({ title: sanitizeParamCategoryName(param.title), params: {} });
-			}
-			else {
-				data[(data.length - 1)].params[paramKey] = param;
-			}
-		});
+      if (isParamACategory(param)) {
+        data.push({ title: sanitizeParamCategoryName(param.title), params: {} });
+      }
+      else {
+        data[(data.length - 1)].params[paramKey] = param;
+      }
+    });
 
-		return data;
-	}
-	catch (e) {
-		console.error(e);
-		throw e;
-	}
+    return data;
+  }
+  catch (e) {
+    console.error(e);
+    throw e;
+  }
 };
 
 export default {
-	categorizeParams,
-	isParamACategory,
-	sanitizeParamCategoryName
+  categorizeParams,
+  isParamACategory,
+  sanitizeParamCategoryName
 }

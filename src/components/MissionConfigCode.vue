@@ -20,7 +20,7 @@ export default {
 
   computed: {
     sourceStart() {
-      return 'class Missions\n{\n\tclass Mission_1\n\t{\n\t\t// Remember to input correct mission name\n\t\ttemplate = "kp_liberation.Altis";\n\t\tdifficulty = "custom";\n\t\tclass Params\n\t\t{\n';
+      return 'class Missions\n{\n\tclass Mission_1\n\t{\n\t\t// Remember to input correct mission name\n\t\ttemplate = "missionName.Mapname";\n\t\tdifficulty = "custom";\n\t\tclass Params\n\t\t{\n';
     },
     sourceEnd() {
       return "\t\t};\n\t};\n};";
