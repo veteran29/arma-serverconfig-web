@@ -1,14 +1,16 @@
 var path = require('path')
 var webpack = require('webpack')
 
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+var HtmlWebpackPlugin = require('html-webpack-plugin'),
+  HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin'),
+  UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
+    path: path.resolve(__dirname, './build/dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: process.env.NODE_ENV === 'production' ? '[name].bundle-[chunkhash].js' : '[name].bundle.js'
   },
   module: {
     rules: [
@@ -18,8 +20,8 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-			},
-			{
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -44,21 +46,30 @@ module.exports = {
   },
   resolve: {
     alias: {
-			'vue$': 'vue/dist/vue.esm.js',
-			'@': path.resolve('./src')
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.resolve('./src')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-		overlay: true,
-		disableHostCheck: true
+    overlay: true,
+    disableHostCheck: true
   },
   performance: {
     hints: process.env.NODE_ENV === 'production' ? 'warning' : false
   },
-  devtool: '#eval-source-map'
+  devtool: '#eval-source-map',
+  // Plugins
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: path.resolve(__dirname, './build/index.html'),
+      template: path.resolve(__dirname, './src/index.template.html'),
+      alwaysWriteToDisk: true // added by html-webpack-harddisk-plugin
+    }),
+    new HtmlWebpackHarddiskPlugin()
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
