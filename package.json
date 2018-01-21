@@ -11,7 +11,7 @@
     "commitmsg": "commitlint -e $GIT_PARAMS"
   },
   "dependencies": {
-    "arma-class-parser": "git+https://github.com/veteran29/arma-class-parser.git",
+    "arma-class-parser": "git+https://github.com/veteran29/arma-class-parser.git#feature\/multiline-comments",
     "bootstrap": "^4.0.0-beta.2",
     "bootstrap-vue": "^1.4.0",
     "htmlparser2": "^3.9.2",
