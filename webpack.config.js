@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './build/dist'),
-    publicPath: '/dist/',
+    publicPath: 'dist/',
     filename: process.env.NODE_ENV === 'production' ? '[name].bundle-[chunkhash].js' : '[name].bundle.js'
   },
   module: {
